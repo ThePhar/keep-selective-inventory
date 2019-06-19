@@ -1,0 +1,7 @@
+name: KeepSelectiveInventory
+version: 0.1.1
+description: A highly configurable death invetory manager.
+author: Zachery "Phar" Parks
+
+main: com.alliware.ksi.KeepSelectiveInventory
+prefix: KSI
