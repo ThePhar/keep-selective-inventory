@@ -1,5 +1,6 @@
 package com.alliware.ksi;
 
+import com.alliware.debug.DebugMessenger;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -19,10 +20,16 @@ public class DeathListener implements Listener {
 
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent event) {
-        // TODO: Add world check. If we're not in a world specified, do not RUN these commands.
-
+        DebugMessenger.debugMessage("A player has died! Starting event", ksiPlugin.debug);
         Player player = event.getEntity();
         World world = player.getWorld();
+
+        // Do not run this event handler if the world we are in is not in the config file.
+        if (!ksiPlugin.config.getStringList("enabledWorlds").contains(world.getName())) {
+            DebugMessenger.debugMessage("This is not an enabled world! (" + world.getName() + ")", ksiPlugin.debug);
+            return;
+        }
+
         int experience = player.getTotalExperience();
 
         // TODO: Add configurable.
@@ -35,6 +42,7 @@ public class DeathListener implements Listener {
 
         Inventory playerInventory = player.getInventory();
 
+        DebugMessenger.debugMessage("Dropping all internal items.", ksiPlugin.debug);
         // TODO: Add configurable.
         // Drop all the items in the player's internal inventory.
         for (int i = 9; i <= 35; i++) {
@@ -42,9 +50,11 @@ public class DeathListener implements Listener {
             if (item != null) {
                 world.dropItem(player.getLocation(), item);
                 playerInventory.clear(i);
+                DebugMessenger.debugMessage("Dropped ItemStack " + item.getType().name(), ksiPlugin.debug);
             }
         }
 
+        DebugMessenger.debugMessage("Damaging all equipped armor.", ksiPlugin.debug);
         // TODO: Add configurable.
         // Damage all equipped armor by a set amount in config file.
         for (int i = 36; i <= 39; i++) {
@@ -68,6 +78,10 @@ public class DeathListener implements Listener {
 
             ((Damageable) meta).setDamage(currentDamage + damageModifier);
             equipment.setItemMeta(meta);
+
+            DebugMessenger.debugMessage(
+                    "Damaged Armor " + equipment.getType().name() + " by " + value + " percent",
+                    ksiPlugin.debug);
         }
     }
 }

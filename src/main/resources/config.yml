@@ -6,3 +6,6 @@ enabledWorlds:
 
 # How much of a percentage should the player lose in durability on equipped armor on death?
 armorDurabilityDamage: 10
+
+# This enables DEBUG messages. Don't use on a production server, will spam chat/console.
+debug: false
