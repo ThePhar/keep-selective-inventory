@@ -8,23 +8,15 @@ public class KeepSelectiveInventory extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        initializeConfig();
+        saveDefaultConfig();
+
+        // TODO: Check for worlds enabled and set /gamerule keepInventory to true.
 
         getServer().getPluginManager().registerEvents(new DeathListener(this), this);
+        getLogger().info("Enabled KSI Plugin.");
     }
     @Override
     public void onDisable() {
-        getLogger().info("onDisable is called!");
-    }
-
-    private void initializeConfig() {
-        config.addDefault("armorDurabilityDamage", 10);
-        config.options().copyDefaults(true);
-        saveConfig();
-
-        if (config.getInt("armorDurabilityDamage") < 0 || config.getInt("armorDurabilityDamage") > 100) {
-            getLogger().info("armorDurabilityDamage must be between 0 and 100 inclusive!");
-            getServer().shutdown();
-        }
+        getLogger().info("Disabled KSI Plugin.");
     }
 }

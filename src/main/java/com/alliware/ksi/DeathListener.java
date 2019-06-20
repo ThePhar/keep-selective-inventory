@@ -19,6 +19,8 @@ public class DeathListener implements Listener {
 
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent event) {
+        // TODO: Add world check. If we're not in a world specified, do not RUN these commands.
+
         Player player = event.getEntity();
         World world = player.getWorld();
         int experience = player.getTotalExperience();

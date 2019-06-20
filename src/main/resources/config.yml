@@ -1,0 +1,8 @@
+# What worlds should we check we're in before running this script. Allows worlds with standard death mechanics.
+enabledWorlds:
+  - world
+  - world_nether
+  - world_the_end
+
+# How much of a percentage should the player lose in durability on equipped armor on death?
+armorDurabilityDamage: 10
